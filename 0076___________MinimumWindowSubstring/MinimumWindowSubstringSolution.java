@@ -4,22 +4,25 @@ import java.util.Set;
 
 public class MinimumWindowSubstringSolution {
     public int minWindow(String s, String t) {
-        HashMap<Character, Integer> map = new HashMap<>();
-        int l = 0;
-        int r = -1;
-        int res = s.length() + 1;
+        // TODO:
+//        HashMap<Character, Integer> map = new HashMap<>();
+//        int l = 0;
+//        int r = -1;
+//        int res = s.length() + 1;
+//
+//        while (l < s.length()) {
+//
+//            if (r + 1 < s.length() && !hasAll(t, map)) {
+//                r++;
+//                map.put(s.charAt(r+1), map.get(s.charAt(r+1))+1);
+//            } else {
+//                res = Math.min(res, r - l + 1);
+//                set.remove(s.charAt(l++));
+//            }
+//        }
+//        return res;
 
-        while (l < s.length()) {
-
-            if (r + 1 < s.length() && !hasAll(t, map)) {
-                r++;
-                map.put(s.charAt(r+1), map.get(s.charAt(r+1))+1);
-            } else {
-                res = Math.min(res, r - l + 1);
-                set.remove(s.charAt(l++));
-            }
-        }
-        return res;
+        return -1;
     }
 
     private boolean hasAll(String t, Set<Character> set) {
