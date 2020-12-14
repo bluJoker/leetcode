@@ -1,54 +1,4 @@
 public class AddTwoNumbers {
-    public class ListNode {
-        int val;
-        ListNode next = null;
-
-        ListNode(int val) {
-            this.val = val;
-        }
-    }
-
-    private ListNode head1;
-
-    // 在链表尾添加新的元素e
-    public void add1(int e) {
-        ListNode node = new ListNode(e);
-        ListNode x = head1;
-        if (x == null) {
-            head1 = node;
-        } else {
-            while (x.next != null) {
-                x = x.next;
-            }
-            x.next = node;
-        }
-    }
-
-    private ListNode head2;
-
-    // 在链表尾添加新的元素e
-    public void add2(int e) {
-        ListNode node = new ListNode(e);
-        ListNode x = head2;
-        if (x == null) {
-            head2 = node;
-        } else {
-            while (x.next != null) {
-                x = x.next;
-            }
-            x.next = node;
-        }
-    }
-
-    public void print(ListNode head) {
-        ListNode node = head;
-
-        while (node != null) {
-
-            System.out.print(node.val + " -> ");
-            node = node.next;
-        }
-    }
 
     // 解法1：递归
     public ListNode addTwoNumbersPositive(ListNode l1, ListNode l2) {
@@ -118,24 +68,13 @@ public class AddTwoNumbers {
     }
 
     public static void main(String[] args) {
-        AddTwoNumbers addTwoNumbers = new AddTwoNumbers();
-        addTwoNumbers.add1(2);
-        addTwoNumbers.add1(4);
-        addTwoNumbers.add1(5);
+        int[] nums1 = {2, 4, 5};
+        ListNode head1 = new ListNode(nums1);
 
-        addTwoNumbers.print(addTwoNumbers.head1);
+        int[] nums2 = {5, 6, 4};
+        ListNode head2 = new ListNode(nums2);
+
+        System.out.println(new AddTwoNumbers().addTwoNumbersPositive2(head1, head2));
         System.out.println("");
-
-        addTwoNumbers.add2(5);
-        addTwoNumbers.add2(6);
-        addTwoNumbers.add2(4);
-        addTwoNumbers.print(addTwoNumbers.head2);
-        System.out.println("");
-
-
-//        ListNode resList = addListPositiveSolution.addTwoNumbersPositive(addListPositiveSolution.head1, addListPositiveSolution.head2);
-        ListNode resList = addTwoNumbers.addTwoNumbersPositive2(addTwoNumbers.head1, addTwoNumbers.head2);
-
-        addTwoNumbers.print(resList);
     }
 }
