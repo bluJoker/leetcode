@@ -11,7 +11,7 @@ public class SwapNodesinPairsSolution {
     // dummyHead ->  2  ->  1  ->  3  ->  4  ->  null
     //     p       node2  node1
     //
-    //下一次循环的p指向node1，反转3 -> 4
+    // 下一次循环的p指向node1，反转3 -> 4
     // dummyHead ->  2  ->  1  ->  3  ->  4  ->  null
     //                      p
     public ListNode swapPairs(ListNode head) {

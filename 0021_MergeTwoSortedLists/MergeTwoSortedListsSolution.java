@@ -31,7 +31,6 @@ public class MergeTwoSortedListsSolution {
         */
 
         // 优化如下，不需要再连接剩下的所有，只需要连接到头结点即可
-
         cur.next = (l1 == null) ? l2 : l1;
 
         return dummyHead.next;
