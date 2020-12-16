@@ -5,13 +5,11 @@ import java.util.Map;
 public class NumberOfBoomerangsSolution {
 
     /**
-     *
      * 题目给出数据范围1 <= n <= 500，所以完全可以涉及一个O(N^2)的算法。
      * 回旋镖的一个主要特性就是 i 与 j 和 k 的距离都相等，遂i起到了一个"枢纽"作用，对于每个点i， 遍历i到其余点的距离。
      * 那么可以对每个节点i到其他点的距离，以及每个距离出现的次数存入到Hash表中。
      * 根据距离的出现次数就可以得到回旋镖的个数（即当某个距离出现次数 >= 2时，可得到回旋镖个数为 distanceNumber * (distanceNumber - 1) )。
-     *
-     * */
+     */
     public int numberOfBoomerangs(int[][] points) {
         int res = 0;
 
@@ -28,17 +26,35 @@ public class NumberOfBoomerangsSolution {
 //                    }else {
 //                        record.put(distance, record.get(distance)+1);
 //                    }
-                    record.put(distance, record.getOrDefault(distance, 0) + 1);
+
+                    // record.put(distance, record.getOrDefault(distance, 0) + 1);
+                    // 使用Lambda引用类的静态方法; coreJava p375
+                    record.put(distance, record.merge(distance, 1, Integer::sum));
                 }
             }
 
             // 遍历查找表，得到回旋镖的个数
-            Iterator<Map.Entry<Integer, Integer>> iterator = record.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Integer, Integer> entry = iterator.next();
-                // 当距离频次大于等于2次时, 则表示存在回旋镖
-                if (entry.getValue() >= 2) {
-                    res += (entry.getValue()) * (entry.getValue() - 1);
+//            Iterator<Map.Entry<Integer, Integer>> iterator = record.entrySet().iterator();
+//            while (iterator.hasNext()) {
+//                Map.Entry<Integer, Integer> entry = iterator.next();
+//                // 当距离频次大于等于2次时, 则表示存在回旋镖
+//                if (entry.getValue() >= 2) {
+//                    res += (entry.getValue()) * (entry.getValue() - 1);
+//                }
+//            }
+
+            // lambda表达式中使用的变量应该是final或者有效的final
+//            record.forEach((k, v) -> {
+//                if (v >= 2){
+//                    res += v * (v-1);
+//
+//
+//                }
+//            });
+
+            for (int v : record.values()) {
+                if (v >= 2) {
+                    res += v * (v - 1);
                 }
             }
         }
