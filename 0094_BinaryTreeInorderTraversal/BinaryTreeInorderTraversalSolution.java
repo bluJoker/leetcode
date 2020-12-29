@@ -2,24 +2,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
-public class BinaryTreePreorderTraversalSolution {
+public class BinaryTreeInorderTraversalSolution {
 
     // 1、递归
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
-        preorderTraversal(root, list);
+        inorderTraversal(root, list);
         return list;
     }
 
-    private void preorderTraversal(TreeNode root, List<Integer> list) {
+    private void inorderTraversal(TreeNode root, List<Integer> list) {
         if (root == null) {
             return;
         }
 
+        inorderTraversal(root.left, list);
         list.add(root.val);
-        preorderTraversal(root.left, list);
-        preorderTraversal(root.right, list);
+        inorderTraversal(root.right, list);
     }
 
 
@@ -34,7 +33,7 @@ public class BinaryTreePreorderTraversalSolution {
         }
     }
 
-    public List<Integer> preorderTraversal2(TreeNode root) {
+    public List<Integer> inorderTraversal2(TreeNode root) {
         List<Integer> resList = new ArrayList<>();
 
         if (root == null) {
@@ -54,10 +53,10 @@ public class BinaryTreePreorderTraversalSolution {
                 if (command.node.right != null) {
                     stack.push(new Command("go", command.node.right));
                 }
+                stack.push(new Command("print", command.node));
                 if (command.node.left != null) {
                     stack.push(new Command("go", command.node.left));
                 }
-                stack.push(new Command("print", command.node));
             }
         }
 
@@ -65,14 +64,4 @@ public class BinaryTreePreorderTraversalSolution {
     }
 
     // 3、TODO：经典非递归写法
-
-    public static void main(String[] args) {
-        Integer[] nums = {1, null, 2, 3};
-        TreeNode root = new TreeNode(nums);
-
-        TreeNode.show(root);
-
-        List<Integer> list = new BinaryTreePreorderTraversalSolution().preorderTraversal2(root);
-        System.out.println(list);
-    }
 }

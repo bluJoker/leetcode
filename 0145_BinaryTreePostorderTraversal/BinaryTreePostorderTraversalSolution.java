@@ -2,26 +2,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
-public class BinaryTreePreorderTraversalSolution {
+public class BinaryTreePostorderTraversalSolution {
 
     // 1、递归
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
-        preorderTraversal(root, list);
+        postorderTraversal(root, list);
         return list;
     }
 
-    private void preorderTraversal(TreeNode root, List<Integer> list) {
+    private void postorderTraversal(TreeNode root, List<Integer> list) {
         if (root == null) {
             return;
         }
 
+        postorderTraversal(root.left, list);
+        postorderTraversal(root.right, list);
         list.add(root.val);
-        preorderTraversal(root.left, list);
-        preorderTraversal(root.right, list);
     }
-
 
     // 2、liuyubobobo运用栈模拟递归模拟
     private class Command {
@@ -34,7 +32,7 @@ public class BinaryTreePreorderTraversalSolution {
         }
     }
 
-    public List<Integer> preorderTraversal2(TreeNode root) {
+    public List<Integer> postorderTraversal2(TreeNode root) {
         List<Integer> resList = new ArrayList<>();
 
         if (root == null) {
@@ -51,28 +49,20 @@ public class BinaryTreePreorderTraversalSolution {
                 resList.add(command.node.val);
             } else {
                 // go
+                stack.push(new Command("print", command.node));
                 if (command.node.right != null) {
                     stack.push(new Command("go", command.node.right));
                 }
                 if (command.node.left != null) {
                     stack.push(new Command("go", command.node.left));
                 }
-                stack.push(new Command("print", command.node));
             }
         }
 
         return resList;
     }
 
+
+
     // 3、TODO：经典非递归写法
-
-    public static void main(String[] args) {
-        Integer[] nums = {1, null, 2, 3};
-        TreeNode root = new TreeNode(nums);
-
-        TreeNode.show(root);
-
-        List<Integer> list = new BinaryTreePreorderTraversalSolution().preorderTraversal2(root);
-        System.out.println(list);
-    }
 }
