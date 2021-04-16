@@ -70,6 +70,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
             } else {
                 set.remove(s.charAt(l++));
             }
+            //此时滑动窗口中已经不包含重复字符了，因为如果包含不会扩展右边界。
             res = Math.max(res, r - l + 1);
         }
         return res;

@@ -26,13 +26,16 @@ public class ThreeSumSolution {
             while (left < right) {
                 if (nums[left] + nums[right] == -nums[i]) {
                     // 找到目标和，加入解
-                    List<Integer> list = new ArrayList<>();
-                    list.add(nums[i]);
-                    list.add(nums[left]);
-                    list.add(nums[right]);
-                    res.add(list);
+//                    List<Integer> list = new ArrayList<>();
+//                    list.add(nums[i]);
+//                    list.add(nums[left]);
+//                    list.add(nums[right]);
+//                    res.add(list);
 
-                    // 由于可能存在多个解，我们需要继续移动指针寻找下一解，并且跳过重复值
+                    //Java8
+                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+
+                    // 由于可能存在多个解，我们需要继续移动指针寻找下一解，并且跳过重复值。只放在这也行，只过滤重复解，非解依然靠for遍历排除
                     while (left < right && nums[left + 1] == nums[left]) {
                         left++;
                     }

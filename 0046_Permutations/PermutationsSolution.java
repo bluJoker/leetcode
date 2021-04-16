@@ -90,10 +90,10 @@ public class PermutationsSolution {
 
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
-//        System.out.println(new PermutationsSolution().permute(nums));
+        System.out.println(new PermutationsSolution().permute(nums));
 
         char[] chars = {'a', 'b', 'c'};
 
-        new PermutationsSolution().finishFullPermutation(chars);
+//        new PermutationsSolution().finishFullPermutation(chars);
     }
 }

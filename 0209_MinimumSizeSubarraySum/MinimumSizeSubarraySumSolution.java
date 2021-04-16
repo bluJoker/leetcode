@@ -13,6 +13,7 @@ public class MinimumSizeSubarraySumSolution {
         int res = nums.length + 1; // 后面要取min
         int sum = 0;
 
+        // 如果r == nums.length，此时还需要判断加大左边界后的结果
         while (l < nums.length) {
             if (r + 1 < nums.length && sum < s) {
                 ++r;
@@ -25,6 +26,16 @@ public class MinimumSizeSubarraySumSolution {
                 res = Math.min(res, r - l + 1);
             }
         }
+//        while (l < nums.length) {
+//            if (r + 1 < nums.length && sum < s) {
+//                ++r;
+//                sum += nums[r]; // 此时可能sum>=s 进入下一步if判断
+//            } else {
+//                // 错误，当r+1=nums.length后还是会进入，res此时会错误更改.因为if条件为两个，此处未判断sum>=s
+//                res = Math.min(res, r - l + 1);
+//                sum -= nums[l++];
+//            }
+//        }
 
 //        if (res == nums.length + 1) {
 //            return 0;
@@ -92,6 +103,6 @@ public class MinimumSizeSubarraySumSolution {
     public static void main(String[] args) {
         int[] nums = {2, 3, 1, 2, 4, 3};
         int s = 7;
-        System.out.println(new MinimumSizeSubarraySumSolution().minSubArrayLen2(s, nums));
+        System.out.println(new MinimumSizeSubarraySumSolution().minSubArrayLen(s, nums));
     }
 }

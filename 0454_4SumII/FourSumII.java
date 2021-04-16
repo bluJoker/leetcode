@@ -14,11 +14,12 @@ public class FourSumII {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
         for (int i = 0; i < C.length; i++) {
             for (int j = 0; j < D.length; j++) {
-                if (!hashMap.containsKey(C[i] + D[j])) {
-                    hashMap.put(C[i] + D[j], 1);
-                } else {
-                    hashMap.put(C[i] + D[j], hashMap.get(C[i] + D[j]) + 1);
-                }
+//                if (!hashMap.containsKey(C[i] + D[j])) {
+//                    hashMap.put(C[i] + D[j], 1);
+//                } else {
+//                    hashMap.put(C[i] + D[j], hashMap.get(C[i] + D[j]) + 1);
+//                }
+                hashMap.put(C[i] + D[j], hashMap.getOrDefault(C[i] + D[j], 0) + 1);
             }
         }
 

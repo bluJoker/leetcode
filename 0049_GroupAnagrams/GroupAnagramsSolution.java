@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GroupAnagramsSolution {
 
@@ -15,7 +16,7 @@ public class GroupAnagramsSolution {
         }
 
         //维护一个映射 ans : {String -> List}，其中每个键 K 是一个排序字符串，每个值是初始输入的字符串列表，排序后等于 K。
-        Map<String, List> res = new HashMap<>();
+        Map<String, List<String>> res = new HashMap<>();
         for (String s : strs) {
             char[] ca = s.toCharArray();
             Arrays.sort(ca);
@@ -28,13 +29,32 @@ public class GroupAnagramsSolution {
 
         //Collection<V> values()
         //Returns a Collection view of the values contained in this map.
-        return new ArrayList(res.values());
+        return new ArrayList<>(res.values());
     }
 
-    public static void main(String[] args) {
-        String[] strings = {"eat","tea","tan","ate","nat","bat"};
+    // stream1:
+    public List<List<String>> groupAnagrams1(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return new ArrayList<>();
+        }
 
-        System.out.println(new GroupAnagramsSolution().groupAnagrams(strings));
+        return new ArrayList<>(Arrays.stream(strs)
+                .collect(Collectors.groupingBy(str -> {
+                    // 返回 str 排序后的结果。
+                    // 按排序后的结果来grouping by，算子类似于 sql 里的 group by。
+                    // https://leetcode-cn.com/problems/group-anagrams/solution/kan-wo-yi-ju-hua-ac-zi-mu-yi-wei-ci-fen-yrnis/
+                    char[] array = str.toCharArray();
+                    Arrays.sort(array);
+                    System.out.println("array=" + Arrays.toString(array));
+                    return new String(array);
+                })).values());
+    }
+
+
+    public static void main(String[] args) {
+        String[] strings = {"eat", "tea", "tan", "ate", "nat", "bat"};
+
+        System.out.println(new GroupAnagramsSolution().groupAnagrams1(strings));
     }
 
 }

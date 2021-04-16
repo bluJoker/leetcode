@@ -13,16 +13,15 @@ public class ContainsDuplicateIIISolution {
     /**
      * 思路：
      * 将每个元素与它之前的 k 个元素比较，查看它们的数值之差是不是在 t 以内。
-     *
+     * <p>
      * 算法：
      * 解决这个问题需要找到一组满足以下条件的 i 和 j：
-     *
-     *     ∣i−j∣≤k
-     *     ∣nums[i]−nums[j]∣≤t
-     *
+     * <p>
+     * ∣i−j∣≤k
+     * ∣nums[i]−nums[j]∣≤t
+     * <p>
      * 我们需要维护了一个k大小的滑动窗口。这种情况下，第一个条件始终是满足的，只需要通过线性搜索来检查第二个条件是否满足就可以了。
-     *
-     * */
+     */
     public boolean containsNearbyAlmostDuplicate1(int[] nums, int k, int t) {
         for (int i = 0; i < nums.length; ++i) {
             for (int j = Math.max(i - k, 0); j < i; ++j) {
@@ -38,8 +37,12 @@ public class ContainsDuplicateIIISolution {
     // 时间复杂度：O(nlog(min(n,k)))
     // 我们需要遍历这个 n 长度的数组。对于每次遍历，在 BST 中搜索，插入或者删除都需要花费 O(log min(k,n)) 的时间。
 
+    // 这个问题的测试数据在使用int进行加减运算时会溢出
+    // 所以使用long
+
     // 空间复杂度：O(min(n,k))
     // 空间复杂度由 BST 的大小决定，其大小的上限由 k 和 n 共同决定。
+
     /**
      * 下面给出整个算法的伪代码：
      * <p>
@@ -52,24 +55,29 @@ public class ContainsDuplicateIIISolution {
      * 返回 false
      */
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
-        TreeSet<Long> set = new TreeSet<>();
+        TreeSet<Long> record = new TreeSet<>();
 
         for (int i = 0; i < nums.length; i++) {
-            Long ceil = set.ceiling((long)nums[i]);
-            // nums[i] + t可能整型溢出
-            if (ceil != null && ceil <= (long)nums[i] + t) {
+//            Long ceil = record.ceiling((long)nums[i]);
+//            // nums[i] + t可能整型溢出
+//            if (ceil != null && ceil <= (long)nums[i] + t) {
+//                return true;
+//            }
+//
+//            Long floor = record.floor((long)nums[i]);
+//            if (floor != null && (long)nums[i] <= floor + t) {
+//                return true;
+//            }
+
+            if (record.ceiling((long) nums[i] - (long) t) != null &&
+                    record.ceiling((long) nums[i] - (long) t) <= (long) nums[i] + (long) t) {
                 return true;
             }
 
-            Long floor = set.floor((long)nums[i]);
-            if (floor != null && (long)nums[i] <= floor + t) {
-                return true;
-            }
+            record.add((long) nums[i]);
 
-            set.add((long)nums[i]);
-
-            if (set.size() == k + 1) {
-                set.remove((long)nums[i - k]);
+            if (record.size() == k + 1) {
+                record.remove((long) nums[i - k]);
             }
         }
         return false;
